@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mdcatemy — Waitlist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <div class="brand">
+      <picture>
+        <source srcset="assets/logo.avif" type="image/avif">
+        <img class="brand-logo" src="assets/logo.png" alt="Mdcatemy logo" />
+      </picture>
+    </div>
+
+    <!-- nav removed as requested -->
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="waitlist">
+      <div class="hero-grid">
+        <!-- LEFT -->
+        <div class="hero-copy">
+          <div class="chip reveal">
+            <span class="dot"></span>
+            <span><strong id="waitlistCount">—</strong> people are on the waitlist</span>
+          </div>
+
+          <h1 class="title reveal title-with-logo">
+            <picture class="title-logo">
+              <source srcset="assets/brand.png" type="image/png">
+              <img class="brand-logo" src="assets/logo.png" alt="Mdcatemy" />
+            </picture>
+            <span class="title-yellow">launching soon</span>
+          </h1>
+
+          <p class="subtitle reveal delay-1">
+            <span class="em-yellow">MDCAT prep is about to change</span>
+          </p>
+
+          <p class="desc reveal delay-2">
+            We’re building something MDCAT students have never had before.
+          </p>
+
+          <div class="card reveal delay-3">
+            <div class="card-top">
+              <h3 class="card-title">Join the waitlist to unlock</h3>
+              <div class="tag tag-yellow">Early Access</div>
+            </div>
+
+            <ul class="benefits">
+              <li><span class="bullet"></span> Priority admission before public launch</li>
+              <li><span class="bullet"></span> Early access benefits for our most advanced MDCAT system</li>
+              <li><span class="bullet"></span> Access to a private WhatsApp study circle</li>
+            </ul>
+
+            <div class="cta-row">
+              <button id="waitlistBtn" class="btn btn-primary">
+                <span class="btn-glow"></span>
+                Join the Waitlist
+              </button>
+              <div id="whatsappCtaWrap" class="cta-post-submit hidden" aria-hidden="true">
+                <button id="whatsappBtn" class="btn btn-ghost">Join WhatsApp</button>
+              </div>
+            </div>
+            <p class="micro">Click the button above to open the waitlist form, then submit it. After you submit, you can join our WhatsApp group.</p>
+            <span id="statusMsg" class="status" role="status" aria-live="polite"></span>
+          </div>
+
+          <!-- removed all the “image 3” clutter -->
+        </div>
+
+        <!-- RIGHT -->
+        <div class="hero-visual reveal delay-2" aria-hidden="true">
+          <div class="visual-head">
+            <div class="panel-title">What Mdcatemy helps you do</div>
+            <div class="panel-sub">A complete system for preparation, not just lectures.</div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="fc-icon">👥</div>
+              <div class="fc-content">
+                <div class="fc-title">Study Tribe</div>
+                <div class="fc-sub">Mentorship • guidance • focused support</div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="fc-icon">📝</div>
+              <div class="fc-content">
+                <div class="fc-title">Smart Tests</div>
+                <div class="fc-sub">MDCAT-aligned • timed • high-yield patterns</div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="fc-icon">📊</div>
+              <div class="fc-content">
+                <div class="fc-title">Weakness Detection</div>
+                <div class="fc-sub">Find weak areas & fix them with targeted practice</div>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="fc-icon">🗓️</div>
+              <div class="fc-content">
+                <div class="fc-title">Daily Structure</div>
+                <div class="fc-sub">Targets, streaks, accountability, so you stay consistent</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-caption">
+            <span class="cap-yellow">Discipline.</span>
+            <span class="cap-white">Structure.</span>
+            <span class="cap-yellow">Results.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Embedded Tally form (shown after clicking Join the Waitlist) -->
+    <section class="form-section form-section--hidden reveal" id="waitlist-form" aria-hidden="true">
+      <div class="form-section-inner">
+        <h2 class="form-section-title">Join the waitlist</h2>
+        <div class="form-embed-wrapper">
+          <iframe class="container" data-tally-src="https://tally.so/embed/Y5Wjr5?alignLeft=0&hideTitle=1&transparentBackground=0&dynamicHeight=1" loading="lazy" title="TEST"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      let d = document, w = "https://tally.so/widgets/embed.js",
+          v = function() {
+          "undefined"!=typeof Tally ?
+              Tally.loadEmbeds() :
+              d.querySelectorAll("iframe[data-tally-src]:not([src])")
+              .forEach(
+                  (function(e) {e.src=e.dataset.tallySrc})
+              )
+          };
+
+      if ("undefined" != typeof Tally) {
+          v();
+      } else if (d.querySelector('script[src="' + w + '"]') == null) {
+          let s = d.createElement("script");
+          (s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s);
+      }
+    </script>
+
+    <script>
+      window.addEventListener('message', function(event) {
+          if (event.origin !== 'https://tally.so') return;
+          try {
+              if (JSON.parse(event.data).event === 'Tally.FormSubmitted') {
+                  document.dispatchEvent(new CustomEvent('tallyFormSubmitted'));
+              }
+          } catch (e) {}
+      });
+    </script>
+
+    <!-- Optional section (kept minimal) -->
+    <section class="mini-section reveal" id="about">
+      <div class="mini-card">
+        <h2>Not just another academy but "A preparation system".</h2>
+        <p>
+          Mdcatemy is designed to make you consistent with structured practice, feedback, and a roadmap that
+          keeps you moving even when motivation drops.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Mdcatemy</span>
+    <span class="footer-sep">•</span>
+    <span class="muted">Study smart. Stay consistent.</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
