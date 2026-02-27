@@ -319,6 +319,121 @@ body{
   visibility: visible;
 }
 
+/* ===== WhatsApp Popup Modal ===== */
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+.modal-overlay.modal--show{
+  opacity: 1;
+  visibility: visible;
+}
+.modal-card{
+  position: relative;
+  width: 90%;
+  max-width: 420px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 22px;
+  padding: 36px 28px 28px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(243,180,0,0.12);
+  text-align: center;
+  transform: scale(0.92) translateY(20px);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+}
+.modal-overlay.modal--show .modal-card{
+  transform: scale(1) translateY(0);
+}
+.modal-close{
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 26px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color .15s ease, background .15s ease;
+}
+.modal-close:hover{
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+.modal-icon{
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.modal-title{
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--yellow);
+}
+.modal-desc{
+  margin: 0 0 22px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+}
+.btn-whatsapp{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(37,211,102,0.3);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-whatsapp:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(37,211,102,0.4);
+}
+.btn-whatsapp:active{
+  transform: translateY(1px);
+}
+.wa-icon{
+  flex-shrink: 0;
+}
+.modal-micro{
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+@media (max-width: 640px){
+  .modal-card{
+    padding: 28px 20px 22px;
+  }
+  .modal-title{
+    font-size: 20px;
+  }
+  .modal-desc{
+    font-size: 14px;
+  }
+  .btn-whatsapp{
+    font-size: 15px;
+    padding: 13px 22px;
+  }
+}
+
 /* Right panel */
 .hero-visual{
   border-radius: var(--radius);

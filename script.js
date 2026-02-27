@@ -162,6 +162,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const statusMsg = $("#statusMsg");
   const toastEl = $("#toast");
 
+  // WhatsApp popup modal elements
+  const modalOverlay = $("#whatsappModal");
+  const modalCloseBtn = $("#modalClose");
+  const modalWhatsappBtn = $("#modalWhatsappBtn");
+
   // Load initial counter (best effort)
   try{
     const count = await counterGet();
@@ -182,6 +187,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(function() {
       toastEl.classList.remove("toast--show");
     }, 4500);
+  }
+
+  // Show WhatsApp popup modal (Fitts's Law — action right where user is)
+  function showWhatsAppModal() {
+    if (!modalOverlay) return;
+    modalOverlay.classList.add("modal--show");
+    modalOverlay.setAttribute("aria-hidden", "false");
+  }
+  function hideWhatsAppModal() {
+    if (!modalOverlay) return;
+    modalOverlay.classList.remove("modal--show");
+    modalOverlay.setAttribute("aria-hidden", "true");
+  }
+
+  // Modal close button
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", hideWhatsAppModal);
+  }
+  // Close modal on overlay click (outside the card)
+  if (modalOverlay) {
+    modalOverlay.addEventListener("click", function(e) {
+      if (e.target === modalOverlay) hideWhatsAppModal();
+    });
+  }
+  // Modal WhatsApp button
+  if (modalWhatsappBtn) {
+    modalWhatsappBtn.addEventListener("click", function() {
+      if (!WHATSAPP_GROUP_URL || WHATSAPP_GROUP_URL.includes("PASTE_")) {
+        alert("Paste your WhatsApp group invite link in script.js (WHATSAPP_GROUP_URL)");
+        return;
+      }
+      window.open(WHATSAPP_GROUP_URL, "_blank", "noopener,noreferrer");
+    });
   }
 
   // Join the Waitlist: show embedded Tally form on the same page
@@ -206,7 +244,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         whatsappCtaWrap.setAttribute("aria-hidden", "false");
       }
       if (statusMsg) { statusMsg.textContent = "You're already counted ✅"; setTimeout(function(){ statusMsg.textContent = ""; }, 3500); }
-      showToast("\"Join Whatsapp\" button appeared above.");
+      // Show popup modal for returning users too
+      showWhatsAppModal();
       return;
     }
     localStorage.setItem(LS_FORM_SUBMITTED_KEY, "1");
@@ -220,10 +259,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       whatsappCtaWrap.setAttribute("aria-hidden", "false");
     }
     if (statusMsg) {
-      statusMsg.textContent = "Thanks for joining ✅ Join our WhatsApp group below.";
+      statusMsg.textContent = "Thanks for joining ✅";
       setTimeout(function(){ statusMsg.textContent = ""; }, 5000);
     }
-    showToast("Form submitted! The Join WhatsApp button has appeared above.");
+    // Show popup modal instead of toast
+    showWhatsAppModal();
   });
 
   if (whatsappBtn) {
